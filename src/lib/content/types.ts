@@ -34,3 +34,7 @@ export type ContentOptions = {
   root?: string;
   includeDrafts?: boolean;
 };
+
+export function isCollectionName(value: string): value is CollectionName {
+  return COLLECTIONS.includes(value as CollectionName);
+}
