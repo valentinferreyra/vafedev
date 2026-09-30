@@ -15,7 +15,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <aside className="desktop-sidebar">
+      <aside id="site-index" className="desktop-sidebar">
         <Link className="brand" href="/">
           VF/DEV
         </Link>

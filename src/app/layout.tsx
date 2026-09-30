@@ -3,6 +3,10 @@ import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { ThemeScript } from "@/components/theme/theme-script";
 import { SiteShell } from "@/components/layout/site-shell";
+import {
+  SITE_LANGUAGE,
+} from "@/lib/site";
+import { siteMetadata } from "@/lib/site-metadata";
 import "./globals.css";
 
 const plex = IBM_Plex_Sans({
@@ -17,15 +21,12 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Valentín Ferreyra | Software Developer",
-  description: "Portfolio personal de Valentín Ferreyra.",
-};
+export const metadata: Metadata = siteMetadata;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang={SITE_LANGUAGE}
       data-theme="light"
       suppressHydrationWarning
       className={`${plex.variable} ${geistMono.variable}`}
