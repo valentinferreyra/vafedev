@@ -1,14 +1,13 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 
-import { getPopulatedCollections } from "@/lib/content/repository";
 import { getNavigation } from "@/lib/navigation";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { MobileNavigation } from "./mobile-navigation";
 import { SiteNavigation } from "./site-navigation";
 
 export function SiteShell({ children }: { children: ReactNode }) {
-  const groups = getNavigation(getPopulatedCollections());
+  const groups = getNavigation();
 
   return (
     <div className="site-shell">

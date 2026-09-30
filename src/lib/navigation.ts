@@ -30,11 +30,6 @@ const groups: NavigationGroup[] = [
   },
 ];
 
-export function getNavigation(populated: Set<CollectionName>): NavigationGroup[] {
-  return groups.map((group) => ({
-    ...group,
-    items: group.items.filter(
-      (item) => !item.collection || populated.has(item.collection),
-    ),
-  }));
+export function getNavigation(): NavigationGroup[] {
+  return groups;
 }

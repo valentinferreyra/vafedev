@@ -12,18 +12,9 @@ vi.mock("next/navigation", () => ({
   usePathname: () => pathname,
 }));
 
-const everyCollection = new Set([
-  "projects",
-  "learning",
-  "designs",
-  "blog",
-  "goals",
-  "books",
-] as const);
-
 describe("navigation model", () => {
   it("keeps the approved primary and secondary order", () => {
-    const [primary] = getNavigation(everyCollection);
+    const [primary] = getNavigation();
 
     expect(primary.items.map(({ label }) => label)).toEqual([
       "Home",
@@ -40,14 +31,20 @@ describe("navigation model", () => {
     ]);
   });
 
-  it("omits empty collections while keeping static routes", () => {
-    const groups = getNavigation(new Set());
+  it("keeps every agreed section visible even before content is published", () => {
+    const groups = getNavigation();
     expect(groups.flatMap(({ items }) => items.map(({ label }) => label))).toEqual([
       "Home",
       "About",
       "Timeline",
+      "Projects",
+      "Learning",
+      "Designs",
+      "Blog",
+      "Goals",
       "Skills",
       "Tools",
+      "Books",
     ]);
   });
 });
@@ -58,7 +55,7 @@ describe("SiteNavigation", () => {
   });
 
   it("marks the current route in a single continuous menu", () => {
-    render(<SiteNavigation groups={getNavigation(everyCollection)} label="Primary" />);
+    render(<SiteNavigation groups={getNavigation()} label="Primary" />);
 
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
       "aria-current",
@@ -74,7 +71,7 @@ describe("SiteNavigation", () => {
 describe("MobileNavigation", () => {
   it("opens, traps focus, closes with Escape, and restores trigger focus", async () => {
     const user = userEvent.setup();
-    render(<MobileNavigation groups={getNavigation(everyCollection)} />);
+    render(<MobileNavigation groups={getNavigation()} />);
     const trigger = screen.getByRole("button", { name: "Open index" });
 
     await user.click(trigger);
@@ -92,7 +89,7 @@ describe("MobileNavigation", () => {
 
   it("closes with its labeled close control", async () => {
     const user = userEvent.setup();
-    render(<MobileNavigation groups={getNavigation(everyCollection)} />);
+    render(<MobileNavigation groups={getNavigation()} />);
     await user.click(screen.getByRole("button", { name: "Open index" }));
 
     await user.click(screen.getByRole("button", { name: "Close index" }));
@@ -102,7 +99,7 @@ describe("MobileNavigation", () => {
 
   it("includes a theme control in mobile navigation", async () => {
     const user = userEvent.setup();
-    render(<MobileNavigation groups={getNavigation(everyCollection)} />);
+    render(<MobileNavigation groups={getNavigation()} />);
     await user.click(screen.getByRole("button", { name: "Open index" }));
 
     expect(screen.getByRole("button", { name: /switch to dark theme/i })).toBeInTheDocument();
