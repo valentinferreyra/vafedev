@@ -150,6 +150,11 @@ summary {
   line-height: 1.55;
 }
 
+.identity strong em {
+  color: var(--accent);
+  font-style: normal;
+}
+
 .site-navigation {
   display: grid;
   gap: 1.15rem;
