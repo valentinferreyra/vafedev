@@ -150,28 +150,18 @@ summary {
   line-height: 1.55;
 }
 
-.identity strong em {
-  color: var(--accent);
-  font-style: normal;
-}
-
-.identity-cursor {
-  display: inline-block;
-  width: 0.38em;
-  height: 0.38em;
-  margin-left: 0.2em;
-  background: var(--accent);
-  vertical-align: baseline;
-  animation: identity-blink 1.6s step-end infinite;
-}
-
-@keyframes identity-blink {
-  50% { opacity: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .identity-cursor { animation: none; }
-}
+.contact-link { color: var(--accent); text-decoration: none; min-height: 44px; display: flex; align-items: center; }
+.contact-link:hover { text-decoration: underline; }
+.contact-channels { list-style: none; padding: 0; margin: 2rem 0 0; }
+.contact-channels li { border-bottom: 1px solid var(--line); }
+.contact-channels a, .contact-channels button { display: flex; align-items: center; gap: 1rem; width: 100%; padding: 1.25rem 0; color: var(--ink); background: none; border: 0; text-decoration: none; text-align: left; font: inherit; cursor: pointer; }
+.contact-channels a:hover, .contact-channels button:hover { color: var(--accent); }
+.contact-channels svg { width: 22px; height: 22px; flex-shrink: 0; }
+.contact-channels a > span:nth-child(2), .contact-channels button > span:nth-child(2) { display: grid; gap: 0.15rem; flex: 1; min-width: 0; }
+.contact-channels strong { font-weight: 500; }
+.contact-channels strong + span { color: var(--muted-ink); font-size: 0.85rem; overflow-wrap: anywhere; }
+.contact-action { font-size: 0.75rem; }
+.contact-status { min-height: 1.6em; font-size: 0.85rem; color: var(--muted-ink); }
 
 .site-navigation {
   display: grid;

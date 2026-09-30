@@ -89,6 +89,7 @@ export function MobileNavigation({ groups }: MobileNavigationProps) {
             </div>
             <SiteNavigation groups={groups} label="Mobile" onNavigate={close} />
             <div className="mobile-panel-foot">
+              <Link className="contact-link" href="/contact" onClick={close}>Get in touch ↗</Link>
               <ThemeToggle />
             </div>
           </div>

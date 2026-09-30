@@ -20,12 +20,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
           VF/DEV
         </Link>
         <div className="identity">
-          <strong><em>Va</em>lentín<br /><em>Fe</em>rreyra<i className="identity-cursor" aria-hidden="true" /></strong>
+          <strong>Valentín<br />Ferreyra</strong>
           <span>Software developer<br />Buenos Aires, Argentina</span>
         </div>
         <SiteNavigation groups={groups} label="Site index" />
         <div className="sidebar-foot">
           <span className="availability">Working on something new</span>
+          <Link className="contact-link" href="/contact">Get in touch ↗</Link>
           <ThemeToggle />
         </div>
       </aside>

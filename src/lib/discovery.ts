@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import type { ContentEntry } from "@/lib/content/types";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
-const staticRoutes = ["/", "/about", "/timeline", "/skills", "/tools"];
+const staticRoutes = ["/", "/about", "/timeline", "/skills", "/tools", "/contact"];
 
 export function buildSitemap(entries: ContentEntry[]): MetadataRoute.Sitemap {
   const publicEntries = entries.filter(({ draft }) => !draft);
