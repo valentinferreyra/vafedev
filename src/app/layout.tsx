@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { ThemeScript } from "@/components/theme/theme-script";
+import { SiteShell } from "@/components/layout/site-shell";
 import "./globals.css";
 
 const plex = IBM_Plex_Sans({
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <ThemeScript />
       </head>
-      <body>{children}</body>
+      <body>
+        <SiteShell>{children}</SiteShell>
+      </body>
     </html>
   );
 }
