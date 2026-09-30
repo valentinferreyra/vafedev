@@ -155,6 +155,24 @@ summary {
   font-style: normal;
 }
 
+.identity-cursor {
+  display: inline-block;
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.2em;
+  background: var(--accent);
+  vertical-align: baseline;
+  animation: identity-blink 1.6s step-end infinite;
+}
+
+@keyframes identity-blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity-cursor { animation: none; }
+}
+
 .site-navigation {
   display: grid;
   gap: 1.15rem;

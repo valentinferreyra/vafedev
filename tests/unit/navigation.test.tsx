@@ -23,7 +23,7 @@ const everyCollection = new Set([
 
 describe("navigation model", () => {
   it("keeps the approved primary and secondary order", () => {
-    const [primary, secondary] = getNavigation(everyCollection);
+    const [primary] = getNavigation(everyCollection);
 
     expect(primary.items.map(({ label }) => label)).toEqual([
       "Home",
@@ -32,8 +32,6 @@ describe("navigation model", () => {
       "Projects",
       "Learning",
       "Designs",
-    ]);
-    expect(secondary.items.map(({ label }) => label)).toEqual([
       "Blog",
       "Goals",
       "Skills",
@@ -59,7 +57,7 @@ describe("SiteNavigation", () => {
     pathname = "/about";
   });
 
-  it("marks the current route and keeps disclosure groups independent", () => {
+  it("marks the current route in a single continuous menu", () => {
     render(<SiteNavigation groups={getNavigation(everyCollection)} label="Primary" />);
 
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute(
@@ -67,14 +65,9 @@ describe("SiteNavigation", () => {
       "page",
     );
     const details = document.querySelectorAll("details");
-    expect(details).toHaveLength(2);
-    expect(details[0]).toHaveAttribute("open");
-    expect(details[1]).toHaveAttribute("open");
-
-    fireEvent.click(within(details[0]).getByText("Profile"));
-
-    expect(details[0]).not.toHaveAttribute("open");
-    expect(details[1]).toHaveAttribute("open");
+    expect(details).toHaveLength(0);
+    expect(screen.queryByText("More")).not.toBeInTheDocument();
+    expect(screen.getAllByRole("list")).toHaveLength(1);
   });
 });
 

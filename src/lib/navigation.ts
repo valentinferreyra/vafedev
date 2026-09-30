@@ -21,11 +21,6 @@ const groups: NavigationGroup[] = [
       { label: "Projects", href: "/projects", collection: "projects" },
       { label: "Learning", href: "/learning", collection: "learning" },
       { label: "Designs", href: "/designs", collection: "designs" },
-    ],
-  },
-  {
-    label: "More",
-    items: [
       { label: "Blog", href: "/blog", collection: "blog" },
       { label: "Goals", href: "/goals", collection: "goals" },
       { label: "Skills", href: "/skills" },

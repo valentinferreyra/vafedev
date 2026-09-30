@@ -17,8 +17,7 @@ export function SiteNavigation({ groups, label, onNavigate }: SiteNavigationProp
   return (
     <nav aria-label={label} className="site-navigation">
       {groups.map((group) => (
-        <details key={group.label} open className="nav-group">
-          <summary>{group.label}</summary>
+        <div key={group.label} className="nav-group">
           <ul>
             {group.items.map((item) => {
               const current =
@@ -38,7 +37,7 @@ export function SiteNavigation({ groups, label, onNavigate }: SiteNavigationProp
               );
             })}
           </ul>
-        </details>
+        </div>
       ))}
     </nav>
   );
