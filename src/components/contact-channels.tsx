@@ -1,0 +1,55 @@
+"use client";
+
+import { useState } from "react";
+
+const channels = [
+  { name: "LinkedIn", label: "valentinferreyra", href: "https://www.linkedin.com/in/valentinferreyra", path: "M4 9v11 M4 4v.5 M9 20V9h5v2c2-4 6-2 6 2v7 M14 11v9" },
+  { name: "GitHub", label: "valentinferreyra", href: "https://github.com/valentinferreyra", path: "M9 21v-4c-4 1-4-2-6-2 M15 21v-4c0-1-.5-2-1-2 4-.5 6-2 6-6 0-2-1-3-1-3 0-1 0-3-.5-3-2 0-3 1-3 1-2-.5-5-.5-7 0 0 0-1-1-3-1-.5 0-.5 2-.5 3-1 1-1 2-1 3 0 4 2 5.5 6 6-.5 0-1 1-1 2" },
+  { name: "X", label: "@vafedev", href: "https://x.com/vafedev", path: "M4 3h4l12 18h-4z M20 3L4 21" },
+];
+
+export function ContactChannels() {
+  const [message, setMessage] = useState("");
+  async function copyContact(value: string, label: string) {
+    try {
+      await navigator.clipboard.writeText(value);
+      setMessage(`${label} copied.`);
+    } catch {
+      setMessage(`Copy this ${label.toLowerCase()}: ${value}`);
+    }
+  }
+  return (
+    <>
+      <ul className="contact-channels">
+        <li>
+          <button type="button" onClick={() => copyContact("valentinferreyradev@gmail.com", "Email")} aria-label="Copy email address valentinferreyradev@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 5h18v14H3z M3 5l9 7 9-7" /></svg>
+            <span><strong>Email</strong><span>valentinferreyradev@gmail.com</span></span>
+            <span className="contact-action">Copy</span>
+          </button>
+        </li>
+        {channels.map(({ name, label, href, path }) => (
+          <li key={name}>
+            <a href={href}>
+              {name === "LinkedIn" ? (
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.75H4.98V9.2h2.95v9.55ZM6.46 7.9a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.29 10.85H15.8V14.1c0-1.1-.02-2.52-1.54-2.52-1.54 0-1.78 1.2-1.78 2.44v4.73H9.53V9.2h2.83v1.3h.04c.4-.75 1.36-1.54 2.79-1.54 2.98 0 3.56 1.96 3.56 4.5v5.29Z" /></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={path} /></svg>
+              )}
+              <span><strong>{name}</strong><span>{label}</span></span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+        <li>
+          <button type="button" onClick={() => copyContact("valenttinf", "Username")} aria-label="Copy Discord username valenttinf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 4l-3 1c-2 4-3 8-3 12l5 3 2-3 M16 4l3 1c2 4 3 8 3 12l-5 3-2-3 M5 16c4 2 10 2 14 0 M8 5c3-1 5-1 8 0" /><circle cx="8" cy="12" r="1" /><circle cx="16" cy="12" r="1" /></svg>
+            <span><strong>Discord</strong><span>valenttinf</span></span>
+            <span className="contact-action">Copy username</span>
+          </button>
+        </li>
+      </ul>
+      <p role="status" className="contact-status">{message}</p>
+    </>
+  );
+}

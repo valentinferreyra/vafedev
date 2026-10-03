@@ -1,0 +1,38 @@
+import type { ReactNode } from "react";
+import Link from "next/link";
+
+import { getNavigation } from "@/lib/navigation";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { MobileNavigation } from "./mobile-navigation";
+import { SiteNavigation } from "./site-navigation";
+
+export function SiteShell({ children }: { children: ReactNode }) {
+  const groups = getNavigation();
+
+  return (
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <aside id="site-index" className="desktop-sidebar">
+        <Link className="brand" href="/">
+          VF/DEV
+        </Link>
+        <div className="identity">
+          <strong>Valentín<br />Ferreyra</strong>
+          <span>Software developer<br />Buenos Aires, Argentina</span>
+        </div>
+        <SiteNavigation groups={groups} label="Site index" />
+        <div className="sidebar-foot">
+          <span className="availability">Working on something new</span>
+          <Link className="contact-link" href="/contact">Get in touch ↗</Link>
+          <ThemeToggle />
+        </div>
+      </aside>
+      <MobileNavigation groups={groups} />
+      <main id="main-content" className="site-main">
+        {children}
+      </main>
+    </div>
+  );
+}
