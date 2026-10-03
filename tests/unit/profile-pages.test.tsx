@@ -9,15 +9,15 @@ import ToolsPage from "@/app/tools/page";
 import { profile, sortTimeline, type TimelineEntry } from "@/lib/profile";
 
 describe("profile content", () => {
-  it("uses only the known identity and explicit placeholder copy", () => {
+  it("uses the supplied career and teaching history", () => {
     expect(profile).toMatchObject({
       name: "Valentín Ferreyra",
       role: "Software developer",
       location: "Buenos Aires, Argentina",
     });
-    expect(profile.about.every((paragraph) => paragraph.startsWith("Placeholder:"))).toBe(
-      true,
-    );
+    expect(profile.about.join(" ")).toContain("Mercado Libre");
+    expect(profile.about.join(" ")).toContain("Universidad Nacional de Quilmes");
+    expect(profile.about.join(" ")).not.toContain("Placeholder:");
   });
 
   it("sorts timeline entries newest first without dropping related links", () => {
@@ -47,20 +47,20 @@ describe("profile pages", () => {
     expect(screen.getByRole("heading", { name: profile.headline })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Now" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Selected milestones" })).toBeInTheDocument();
-    expect(screen.queryByRole("heading", { name: "Featured design" })).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Featured design" })).toBeInTheDocument();
   });
 
-  it("renders About as narrative placeholder content", () => {
+  it("renders About as career and teaching narrative", () => {
     render(<AboutPage />);
 
     expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
-    expect(screen.getAllByText(/^Placeholder:/)).toHaveLength(profile.about.length);
+    expect(screen.getByText(profile.about[0])).toBeInTheDocument();
   });
 
-  it("renders an intentional empty Timeline", () => {
+  it("renders confirmed career milestones", () => {
     render(<TimelinePage />);
     expect(screen.getByRole("heading", { name: "Timeline" })).toBeInTheDocument();
-    expect(screen.getByText("No milestones published yet.")).toBeInTheDocument();
+    expect(screen.getByText("Promoted to Semi Senior")).toBeInTheDocument();
   });
 
   it("renders honest Skills and Tools placeholders", () => {

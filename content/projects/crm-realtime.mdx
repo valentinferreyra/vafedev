@@ -1,0 +1,32 @@
+---
+slug: crm-realtime
+title: CRM Realtime
+summary: Replaced a case-opening API with a gateway-based architecture, end-to-end traceability, and operational documentation for the team.
+date: 2026-10-03
+draft: false
+status: Implemented
+tags: [Backend, Platform engineering, Observability]
+related:
+  - collection: designs
+    slug: crm-case-traceability
+---
+
+## Context
+
+At Mercado Libre’s Customer Service CRM Platform, we build capabilities for representatives and the teams developing applications on the platform. The original API combined case opening and representative information, with limited visibility into failures.
+
+## My contribution
+
+I proposed and designed the replacement architecture, implemented the solution, developed its tests, and iterated on improvements. An API Gateway coordinates our applications to open cases, with a trace identifier that follows processing end to end and records available in BigQuery.
+
+I also built Datadog dashboards, wrote runbooks for on-call support, and prepared presentations to keep the team informed as the system evolved.
+
+## Outcome
+
+The new solution replaced the original application, which was deprecated. The realtime capability evolved from opening cases to delivering custom events and their properties to the frontend event bus, where applications can respond to the event keys they subscribe to.
+
+## Learning
+
+This work deepened my experience with long polling, queues, key-value storage, SQL, MongoDB, BigQuery, and integration across teams.
+
+*Published October 2026. The publication date does not indicate the project’s start or completion date.*

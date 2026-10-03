@@ -1,0 +1,30 @@
+---
+slug: crm-case-traceability
+title: Making case processing traceable
+summary: A gateway coordinates case opening across applications, while a shared trace identifier makes the processing path inspectable end to end.
+date: 2026-10-03
+draft: false
+status: Implemented
+tags: [Architecture, Distributed systems, Observability]
+related:
+  - collection: projects
+    slug: crm-realtime
+---
+
+## The problem
+
+The original CRM API concentrated several responsibilities and had limited observability. When an error occurred, identifying where to start investigating was difficult.
+
+## The design
+
+I proposed and implemented an API Gateway that communicates with our applications to coordinate case opening. A shared trace identifier follows each case through processing, with records in BigQuery that allow the path to be inspected end to end.
+
+## Operating the system
+
+I complemented the architecture with Datadog dashboards and on-call runbooks. Presentations kept the team informed about the implementation and how to operate it.
+
+## Outcome
+
+The replacement enabled retirement of the original application and gave the team a traceable processing path for investigating case-opening failures.
+
+*Published October 2026. The publication date does not indicate the project’s start or completion date.*

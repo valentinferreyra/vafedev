@@ -96,7 +96,10 @@ describe("content routes", () => {
       { collection: "goals" },
       { collection: "books" },
     ]);
-    expect(generateDetailParams()).toEqual([]);
+    expect(generateDetailParams()).toEqual([
+      { collection: "projects", slug: "crm-realtime" },
+      { collection: "designs", slug: "crm-case-traceability" },
+    ]);
   });
 
   it("renders a valid empty collection route", async () => {
