@@ -60,7 +60,10 @@ describe("profile pages", () => {
   it("renders confirmed career milestones", () => {
     render(<TimelinePage />);
     expect(screen.getByRole("heading", { name: "Timeline" })).toBeInTheDocument();
-    expect(screen.getByText("Promoted to Semi Senior")).toBeInTheDocument();
+    expect(screen.getByText("Ssr Software Engineer · Mercado Libre")).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Professional experience" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Teaching" })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Education" })).toBeInTheDocument();
   });
 
   it("renders honest Skills and Tools placeholders", () => {

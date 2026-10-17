@@ -628,7 +628,9 @@ summary {
 }
 
 .timeline-list h2,
-.reference-list h2 {
+.timeline-list h3,
+.reference-list h2,
+.reference-list h3 {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 500;

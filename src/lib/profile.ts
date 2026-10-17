@@ -3,6 +3,8 @@ export type TimelineEntry = {
   title: string;
   summary: string;
   href?: string;
+  category?: "Professional experience" | "Teaching";
+  period?: string;
 };
 
 export type ReferenceItem = {
@@ -24,17 +26,23 @@ export const profile = {
   about: [
     "I work in Customer Service at Mercado Libre, on the cross-functional CRM Platform team. We build capabilities for customer service representatives and for the development teams whose applications run on the platform. I joined as a Junior Software Engineer in 2022 and became a Semi Senior in February 2025.",
     "I enjoy listening to customer needs and working with my team to turn them into practical solutions. My work includes backend architecture, distributed systems, event-driven processing, observability, and technical documentation. I explain technical work in terms that frontend and product teams can understand, connecting implementation decisions to their value for customers.",
-    "Since 2022, I have taught Estrategias de Persistencia at Universidad Nacional de Quilmes. Students arrive with object-oriented programming and SQL knowledge and build their first APIs using Java, JDBC, Hibernate, and Spring. We also explore MongoDB, Neo4j, transactions, consistency, scaling, and the trade-offs behind persistence choices.",
+    "My teaching work at Universidad Nacional de Quilmes began in July 2021 as a teaching assistant in Programación con Objetos 1. I joined Estrategias de Persistencia as a teaching assistant in July 2022 and became an instructor in March 2026. Students build their first APIs using Java, JDBC, Hibernate, and Spring, and explore MongoDB, Neo4j, transactions, consistency, and scaling trade-offs.",
     "I mentor student teams through their projects, reviewing pull requests and helping with Git workflows, design decisions, and team organization. Teaching strengthens how I communicate and support teams at work, while professional experience gives me concrete examples to bring into the classroom.",
-    "I earned my Técnico en Programación Informática qualification at UNQ in 2024 and am continuing toward a licenciatura. My next professional goals are to grow into a Senior Engineer role and, eventually, technical leadership. I use this space to share my work and connect with other developers and teams.",
+    "I hold a Técnico Universitario en Programación Informática qualification from UNQ and am pursuing the Licenciatura en Informática. My next professional goals are to grow into a Senior Engineer role and, eventually, technical leadership. I use this space to share my work and connect with other developers and teams.",
   ],
 } as const;
 
 export const timeline: TimelineEntry[] = [
-  { date: "2022", title: "Joined Mercado Libre", summary: "Started as a Junior Software Engineer in Customer Service, contributing to the CRM platform." },
-  { date: "2022", title: "Started university teaching", summary: "Began teaching Estrategias de Persistencia at Universidad Nacional de Quilmes and mentoring student project teams." },
-  { date: "2024", title: "First university qualification", summary: "Earned the Técnico en Programación Informática qualification at UNQ. Continuing toward a licenciatura." },
-  { date: "2025-02", title: "Promoted to Semi Senior", summary: "Became a Semi Senior Software Engineer at Mercado Libre, continuing work on CRM Platform." },
+  { date: "2022-12", period: "Dec 2022 – Feb 2025", category: "Professional experience", title: "Software Developer · Mercado Libre", summary: "Joined as a junior developer in Customer Service, contributing to the CRM platform and Live Notifications." },
+  { date: "2025-02", period: "Feb 2025 – Present", category: "Professional experience", title: "Ssr Software Engineer · Mercado Libre", summary: "Design and maintenance of high-traffic backend applications. Distributed systems, event-driven processing, observability, technical documentation, backlog planning, estimates, and task delegation.", href: "/projects/crm-realtime" },
+  { date: "2021-07", period: "Jul 2021 – Dec 2022", category: "Teaching", title: "Teaching assistant · Programación con Objetos 1", summary: "Volunteer teaching assistant at Universidad Nacional de Quilmes." },
+  { date: "2022-07", period: "Jul 2022 – Mar 2026", category: "Teaching", title: "Teaching assistant · Estrategias de Persistencia", summary: "Volunteer teaching assistant at UNQ, supporting persistence and API development coursework and mentoring student project teams." },
+  { date: "2026-03", period: "Mar 2026 – Present", category: "Teaching", title: "University instructor · Estrategias de Persistencia", summary: "Teaching persistence, API development, transactions, and SQL/NoSQL trade-offs at UNQ. Mentoring teams through code reviews, Git workflows, and design decisions." },
+];
+
+export const education: ReferenceItem[] = [
+  { name: "Técnico Universitario en Programación Informática", note: "Universidad Nacional de Quilmes · Completed" },
+  { name: "Licenciatura en Informática", note: "Universidad Nacional de Quilmes · In progress" },
 ];
 export const skills: ReferenceItem[] = [];
 export const tools: ReferenceItem[] = [];

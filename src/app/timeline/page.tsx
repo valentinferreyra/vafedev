@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { sortTimeline, timeline } from "@/lib/profile";
+import { education, sortTimeline, timeline } from "@/lib/profile";
 
 export default function TimelinePage() {
   const entries = sortTimeline(timeline);
@@ -8,23 +8,32 @@ export default function TimelinePage() {
     <section className="profile-page">
       <p className="eyebrow">Profile / Timeline</p>
       <h1>Timeline</h1>
-      {entries.length ? (
+      {["Professional experience", "Teaching"].map((category) => (
+        <section key={category} aria-label={category}>
+          <h2>{category}</h2>
         <ol className="timeline-list">
-          {entries.map((entry) => (
+          {entries.filter((entry) => entry.category === category).map((entry) => (
             <li key={`${entry.date}-${entry.title}`}>
-              <time dateTime={entry.date}>{entry.date}</time>
+              <time dateTime={entry.date}>{entry.period ?? entry.date}</time>
               <div>
-                <h2>
+                <h3>
                   {entry.href ? <Link href={entry.href}>{entry.title}</Link> : entry.title}
-                </h2>
+                </h3>
                 <p>{entry.summary}</p>
               </div>
             </li>
           ))}
         </ol>
-      ) : (
-        <p className="empty-state">No milestones published yet.</p>
-      )}
+        </section>
+      ))}
+      <section aria-label="Education">
+        <h2>Education</h2>
+        <ul className="reference-list">
+          {education.map((item) => (
+            <li key={item.name}><h3>{item.name}</h3><p>{item.note}</p></li>
+          ))}
+        </ul>
+      </section>
     </section>
   );
 }

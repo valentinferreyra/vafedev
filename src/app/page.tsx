@@ -47,7 +47,7 @@ export default function HomePage() {
         {milestones.length ? (
           milestones.map((milestone) => (
             <div className="home-row" key={`${milestone.date}-${milestone.title}`}>
-              <time dateTime={milestone.date}>{milestone.date.slice(0, 4)}</time>
+              <div><time dateTime={milestone.date}>{milestone.date.slice(0, 4)}</time><br /><span>{milestone.category}</span></div>
               <div>
                 <h3>
                   {milestone.href ? (
