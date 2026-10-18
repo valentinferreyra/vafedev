@@ -582,6 +582,15 @@ summary {
 .book-cover strong { font-weight: 500; font-size: 0.95rem; line-height: 1.25; }
 .book-cover-backlog { border-left-style: dotted; }
 .book-cover-image { width: 100%; height: auto; object-fit: contain; }
+.music-tracks { list-style: none; padding: 0; margin: 3rem 0; }
+.music-tracks li { border-top: 1px solid var(--line); }
+.music-tracks a { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; text-decoration: none; }
+.music-tracks a:hover { color: var(--accent); }
+.music-tracks a > span:nth-child(2) { flex: 1; min-width: 0; display: grid; }
+.music-tracks strong { font-weight: 500; overflow-wrap: anywhere; }
+.music-tracks strong + span, .music-credit { color: var(--muted-ink); font-size: 0.85rem; }
+.music-tracks img { object-fit: cover; border-radius: 0.2rem; }
+.music-art-placeholder { width: 64px; height: 64px; background: var(--surface); }
 .book-cover-reading { background: var(--teal-glow); }
 .book-copy h3 { margin: 0; font-size: 1.25rem; font-weight: 500; }
 .book-topic { margin: 0 0 0.4rem; font: 0.68rem/1.5 var(--font-geist-mono), monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
