@@ -1,7 +1,7 @@
 ---
 slug: crm-realtime
-title: CRM Realtime
-summary: Replaced a case-opening API with a gateway-based architecture, end-to-end traceability, and operational documentation for the team.
+title: Real-time event delivery for customer service applications
+summary: Designed and implemented a gateway-based system for case-opening requests and custom events, with end-to-end traceability and operational support.
 date: 2026-10-03
 draft: false
 status: Implemented
@@ -25,8 +25,8 @@ I also built Datadog dashboards, wrote runbooks for on-call support, and prepare
 
 The new solution replaced the original application, which was deprecated. The realtime capability evolved from opening cases to delivering custom events and their properties to the frontend event bus, where applications can respond to the event keys they subscribe to.
 
-## Learning
+## Stack and testing
 
-This work deepened my experience with long polling, queues, key-value storage, SQL, MongoDB, BigQuery, and integration across teams.
+KVS, BigQueue, Jobs, MongoDB, and BigQuery, with long polling for frontend communication and dashboards in Datadog. I also carried out end-to-end and performance testing.
 
 *Published October 2026. The publication date does not indicate the project’s start or completion date.*

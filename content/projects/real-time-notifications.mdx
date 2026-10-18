@@ -1,0 +1,28 @@
+---
+slug: real-time-notifications
+title: Real-time notifications for users and teams
+summary: Contributed frontend and backend functionality for real-time notifications, with batched delivery for large audiences and teams configured in MySQL.
+date: 2026-10-18
+draft: false
+status: Implemented
+tags: [Backend, Frontend, Event-driven systems]
+related: []
+---
+
+## Context
+
+At Mercado Libre, I worked on real-time notifications for customer service representatives. Notifications could display announcements to individual users, teams, or large audiences.
+
+## My contribution
+
+I worked on both frontend and backend functionality. The implementation used KVS, Streams, and Jobs. MySQL supported creating teams so notifications could target a team rather than requiring individual recipients.
+
+## Delivery at scale
+
+For notifications directed at many users, we used batched delivery to control outgoing traffic and reduce the risk of HTTP 429 responses or service disruption.
+
+## Stack
+
+KVS, Streams, Jobs, and MySQL.
+
+*Published October 2026. The publication date does not indicate the contribution’s start or completion date.*

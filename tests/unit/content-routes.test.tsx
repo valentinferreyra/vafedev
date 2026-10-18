@@ -97,6 +97,7 @@ describe("content routes", () => {
       { collection: "books" },
     ]);
     expect(generateDetailParams()).toEqual([
+      { collection: "projects", slug: "real-time-notifications" },
       { collection: "projects", slug: "crm-realtime" },
       { collection: "designs", slug: "crm-case-traceability" },
     ]);

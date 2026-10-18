@@ -35,6 +35,9 @@ export function ContentCollection({
     <section className="collection-page">
       <p className="eyebrow">Index / {title}</p>
       <h1>{title}</h1>
+      {title === "Projects" ? (
+        <p>Selected contributions: the problems I worked on, what I built, and the decisions behind the work.</p>
+      ) : null}
       {entries.length ? (
         <div className="content-list">
           {entries.map((entry) => (
