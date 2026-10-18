@@ -1,6 +1,6 @@
 # Spotify Music
 
-Music displays a Spotify playlist widget. The managed public playlist, `vafedev · On repeat`, mirrors up to 20 recently saved tracks. Only the owner connects Spotify; visitors do not authenticate. OAuth scopes are `user-library-read` and `playlist-modify-public`.
+Music displays a Spotify playlist widget. The managed public playlist, `vafedev · On repeat`, mirrors up to 25 recently saved tracks. Only the owner connects Spotify; visitors do not authenticate. OAuth scopes are `user-library-read` and `playlist-modify-public`.
 
 ## Local connection
 

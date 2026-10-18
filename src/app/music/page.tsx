@@ -13,7 +13,7 @@ export default async function MusicPage({ searchParams }: { searchParams: Promis
     <section className="music-page">
       <p className="eyebrow">Library / Music</p><h1>Music</h1>
       {local && (!playlistId || failed || connection === "failed") ? <aside className="books-preview-note">
-        <p>{connection === "failed" || failed ? "Playlist synchronization needs attention. Check the Spotify app settings or reconnect." : "Authorize Spotify to create the public playlist vafedev · On repeat and keep it synced with your 20 most recently liked songs. Only this managed playlist will be updated."}</p>
+        <p>{connection === "failed" || failed ? "Playlist synchronization needs attention. Check the Spotify app settings or reconnect." : "Authorize Spotify to create the public playlist vafedev · On repeat and keep it synced with your 25 most recently liked songs. Only this managed playlist will be updated."}</p>
         <form action="http://127.0.0.1:3000/api/spotify/connect" method="post"><button type="submit" className="theme-toggle">Connect Spotify</button></form>
         <p>Open this page at <a href="http://127.0.0.1:3000/music">127.0.0.1:3000/music</a> before connecting.</p>
       </aside> : null}

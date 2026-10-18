@@ -65,7 +65,7 @@ async function readSession() {
 
 export function parseSavedTracks(data: unknown) {
   return trackSchema.parse(data).items.filter((item) => item.track !== null)
-    .sort((a, b) => b.added_at.localeCompare(a.added_at)).slice(0, 20)
+    .sort((a, b) => b.added_at.localeCompare(a.added_at)).slice(0, 25)
     .map(({ track }) => ({ id: track!.id, name: track!.name, artist: track!.artists.map(({ name }) => name).join(", "), image: track!.album.images[0]?.url, url: track!.external_urls.spotify }));
 }
 
@@ -80,7 +80,7 @@ async function playlistRequest(accessToken: string, endpoint: string, method = "
 
 export async function replacePlaylistSongs(accessToken: string, playlistId: string, ids: string[]) {
   const id = z.string().regex(/^[A-Za-z0-9]+$/).parse(playlistId);
-  const tracks = z.array(z.string().regex(/^[A-Za-z0-9]+$/)).max(20).parse(ids);
+  const tracks = z.array(z.string().regex(/^[A-Za-z0-9]+$/)).max(25).parse(ids);
   await playlistRequest(accessToken, `/playlists/${id}/items`, "PUT", { uris: tracks.map((track) => `spotify:track:${track}`) });
 }
 
@@ -105,14 +105,14 @@ export async function getSpotifyPlaylist(allowCreate = false) {
     if (playlist && playlist.ownerId !== owner.id) throw new Error("Playlist owner mismatch.");
     if (!playlist) {
       const created = z.object({ id: z.string().regex(/^[A-Za-z0-9]+$/) }).parse(await playlistRequest(token.access_token, "/me/playlists", "POST", {
-        name: "vafedev · On repeat", public: true, description: "My 20 most recently liked songs. Managed by vafedev.me; contents are replaced during synchronization.",
+        name: "vafedev · On repeat", public: true, description: "My 25 most recently liked songs. Managed by vafedev.me; contents are replaced during synchronization.",
       }));
       playlist = { id: created.id, ownerId: owner.id, uris: [], syncedAt: 0 };
       await writeFile(playlistPath, JSON.stringify(playlist), { mode: 0o600 });
     }
     const actual = z.object({ owner: z.object({ id: z.string() }), name: z.string() }).parse(await playlistRequest(token.access_token, `/playlists/${playlist.id}?fields=owner(id),name`));
-    if (actual.owner.id !== owner.id || actual.name !== "vafedev · On repeat") throw new Error("Managed playlist changed. Sync stopped.");
-    const songs = parseSavedTracks(await playlistRequest(token.access_token, "/me/tracks?limit=20"));
+    if (actual.owner.id !== owner.id || !["vafedev · On repeat", "vafedev · on repeat"].includes(actual.name)) throw new Error("Managed playlist changed. Sync stopped.");
+    const songs = parseSavedTracks(await playlistRequest(token.access_token, "/me/tracks?limit=25"));
     const uris = songs.map((song) => `spotify:track:${song.id}`);
     if (JSON.stringify(uris) !== JSON.stringify(playlist.uris)) await replacePlaylistSongs(token.access_token, playlist.id, songs.map((song) => song.id));
     const temporary = `${playlistPath}.tmp`;

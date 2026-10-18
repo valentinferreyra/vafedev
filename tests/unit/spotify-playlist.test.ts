@@ -37,10 +37,26 @@ it("creates a public managed playlist only during explicit setup, then fills it"
     { snapshot_id: "new" },
   ]);
   expect(await getSpotifyPlaylist(true)).toBe("playlist123");
+  expect(mock.mock.calls.some(([url]) => url === "https://api.spotify.com/v1/me/tracks?limit=25")).toBe(true);
   const creation = mock.mock.calls.find(([url]) => url.endsWith("/me/playlists"));
   expect(JSON.parse(creation![1].body)).toMatchObject({ name: "vafedev · On repeat", public: true });
   expect(mock.mock.calls.at(-1)![0]).toBe("https://api.spotify.com/v1/playlists/playlist123/items");
   expect(writeFile).toHaveBeenCalledWith(expect.stringContaining("playlist.json"), expect.stringContaining("playlist123"), { mode: 0o600 });
+});
+
+it("syncs the existing managed playlist with its lowercase name", async () => {
+  setup();
+  vi.mocked(readFile).mockResolvedValue(JSON.stringify({ id: "playlist123", ownerId: "owner", uris: [], syncedAt: 0 }));
+  const mock = mockFetch([
+    { access_token: "access" }, { id: "owner" },
+    { owner: { id: "owner" }, name: "vafedev · on repeat" },
+    { items: Array.from({ length: 25 }, (_, index) => ({ added_at: "2026-10-18", track: { id: `song${index}`, name: "Song", artists: [], album: { images: [] }, external_urls: { spotify: `https://open.spotify.com/track/song${index}` } } })) },
+    { snapshot_id: "new" },
+  ]);
+  expect(await getSpotifyPlaylist()).toBe("playlist123");
+  const update = mock.mock.calls.find(([, init]) => init.method === "PUT");
+  expect(update![0]).toBe("https://api.spotify.com/v1/playlists/playlist123/items");
+  expect(JSON.parse(update![1].body).uris).toHaveLength(25);
 });
 
 it("does not update a playlist belonging to a different account", async () => {

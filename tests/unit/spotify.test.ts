@@ -17,8 +17,8 @@ it("uses PKCE with library read and public playlist write access", () => {
   expect(createSpotifyAuthorization().state).not.toBe(auth.state);
 });
 
-it("replaces only the specified playlist with at most 20 track URIs", async () => {
-  const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ snapshot_id: "new" })));
+it("replaces only the specified playlist with at most 25 track URIs", async () => {
+  const fetchMock = vi.fn().mockImplementation(async () => new Response(JSON.stringify({ snapshot_id: "new" })));
   vi.stubGlobal("fetch", fetchMock);
   await replacePlaylistSongs("private", "managed123", ["song1", "song2"]);
   const [url, init] = fetchMock.mock.calls[0];
@@ -26,8 +26,10 @@ it("replaces only the specified playlist with at most 20 track URIs", async () =
   expect(init.method).toBe("PUT");
   expect(JSON.parse(init.body)).toEqual({ uris: ["spotify:track:song1", "spotify:track:song2"] });
   await expect(replacePlaylistSongs("private", "../other", [])).rejects.toThrow();
-  await expect(replacePlaylistSongs("private", "managed123", Array(21).fill("song"))).rejects.toThrow();
-  expect(fetchMock).toHaveBeenCalledTimes(1);
+  await replacePlaylistSongs("private", "managed123", Array(25).fill("song"));
+  expect(JSON.parse(fetchMock.mock.calls[1][1].body).uris).toHaveLength(25);
+  await expect(replacePlaylistSongs("private", "managed123", Array(26).fill("song"))).rejects.toThrow();
+  expect(fetchMock).toHaveBeenCalledTimes(2);
 });
 
 it("disables setup in production and outside the exact local origin", () => {
@@ -67,10 +69,10 @@ it("rejects a callback with mismatched state without contacting Spotify", async 
   expect(response.cookies.get("spotify-verifier")?.maxAge).toBe(0);
 });
 
-it("filters unavailable tracks and returns at most 20 public song records", () => {
+it("filters unavailable tracks and returns at most 25 public song records", () => {
   const item = { added_at: "2026-10-18", track: { id: "one", name: "Song", artists: [{ name: "Artist" }], album: { images: [] }, external_urls: { spotify: "https://open.spotify.com/track/one" } } };
-  const songs = parseSavedTracks({ items: [{ added_at: "2026-10-18", track: null }, ...Array.from({ length: 25 }, () => item)] });
-  expect(songs).toHaveLength(20);
+  const songs = parseSavedTracks({ items: [{ added_at: "2026-10-18", track: null }, ...Array.from({ length: 30 }, () => item)] });
+  expect(songs).toHaveLength(25);
   expect(songs[0]).toEqual({ id: "one", name: "Song", artist: "Artist", url: "https://open.spotify.com/track/one", image: undefined });
   expect(() => parseSavedTracks({ items: [{}] })).toThrow();
 });
