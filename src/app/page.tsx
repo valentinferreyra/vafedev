@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContactChannels } from "@/components/contact-channels";
 import { getCollection } from "@/lib/content/repository";
 import { education, profile } from "@/lib/profile";
 
@@ -45,7 +46,7 @@ export default function HomePage() {
         <p className="eyebrow">05 / Contact</p>
         <div className="section-heading"><h2 id="contact-title">Let’s talk</h2></div>
         <p>I’m here to share work, exchange ideas, and connect with other developers and teams.</p>
-        <Link href="/contact">Get in touch ↗</Link>
+        <ContactChannels />
       </section>
     </div>
   );
