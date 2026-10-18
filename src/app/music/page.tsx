@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MusicPlayer } from "@/components/music-player";
 import { unstable_cache } from "next/cache";
 import { fetchLikedSongs } from "@/lib/spotify";
 
@@ -21,13 +21,8 @@ export default async function MusicPage({ searchParams }: { searchParams: Promis
         <form action="http://127.0.0.1:3000/api/spotify/connect" method="post"><button type="submit" className="theme-toggle">Connect Spotify</button></form>
         <p>Open this page at <a href="http://127.0.0.1:3000/music">127.0.0.1:3000/music</a> before connecting.</p>
       </aside> : null}
-      {songs?.length ? <ul className="music-tracks">{songs.map((song) => <li key={song.id}>
-        <a href={song.url} target="_blank" rel="noopener noreferrer">
-          {song.image ? <Image src={song.image} alt="" width={64} height={64} unoptimized /> : <span className="music-art-placeholder" aria-hidden="true" />}
-          <span><strong>{song.name}</strong><span>{song.artist}</span></span><span aria-hidden="true">↗</span>
-        </a>
-      </li>)}</ul> : <p className="empty-state">{failed ? "Music is temporarily unavailable. Please check back later." : songs ? "No liked songs to share yet." : "My music selection will be here soon."}</p>}
-      <p className="music-credit">Music and artwork provided by Spotify. Open a song to listen on Spotify.</p>
+      {songs?.length ? <MusicPlayer songs={songs} /> : <p className="empty-state">{failed ? "Music is temporarily unavailable. Please check back later." : songs ? "No liked songs to share yet." : "My music selection will be here soon."}</p>}
+      <p className="music-credit">Music and artwork provided by Spotify.</p>
     </section>
   );
 }
