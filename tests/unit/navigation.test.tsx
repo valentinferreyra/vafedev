@@ -28,7 +28,6 @@ describe("navigation model", () => {
       "Skills",
       "Tools",
       "Books",
-      "Music",
     ]);
   });
 
@@ -46,7 +45,6 @@ describe("navigation model", () => {
       "Skills",
       "Tools",
       "Books",
-      "Music",
     ]);
   });
 });

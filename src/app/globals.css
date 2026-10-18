@@ -582,7 +582,6 @@ summary {
 .book-cover strong { font-weight: 500; font-size: 0.95rem; line-height: 1.25; }
 .book-cover-backlog { border-left-style: dotted; }
 .book-cover-image { width: 100%; height: auto; object-fit: contain; }
-.spotify-playlist-widget { display: block; margin-top: 2rem; border: 0; border-radius: 12px; }
 .book-cover-reading { background: var(--teal-glow); }
 .book-copy h3 { margin: 0; font-size: 1.25rem; font-weight: 500; }
 .book-topic { margin: 0 0 0.4rem; font: 0.68rem/1.5 var(--font-geist-mono), monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
