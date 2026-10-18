@@ -12,7 +12,7 @@ test("starts light regardless of system preference and persists manual choices",
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 
-  await page.getByRole("link", { name: "About" }).click();
+  await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await page.getByRole("button", { name: "Switch to light theme" }).click();
   await page.reload();

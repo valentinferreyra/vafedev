@@ -40,14 +40,15 @@ describe("profile content", () => {
 });
 
 describe("profile pages", () => {
-  it("renders identity, current focus, and selected milestones on Home", () => {
+  it("presents a short introduction followed by distinct career sections", () => {
     render(<HomePage />);
 
-    expect(screen.getByText("Software developer · Profile 2026")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: profile.headline })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Now" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Selected milestones" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Featured design" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: profile.name })).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 2 }).map((heading) => heading.textContent)).toEqual([
+      "Work", "Teaching", "Education", "Selected contributions", "Let’s talk",
+    ]);
+    expect(screen.queryByText("Selected milestones")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Real-time notifications for users and teams" })).toHaveAttribute("href", "/projects/real-time-notifications");
   });
 
   it("renders About as career and teaching narrative", () => {
