@@ -1,0 +1,34 @@
+---
+slug: profile-channel-releases
+title: Profile-based experiences and release channels for a CRM platform
+summary: Designed and built profile assignment and developer release tooling so users could receive different CRM configurations by profile and channel, while application teams worked independently.
+date: 2026-10-18
+draft: false
+status: Implemented
+tags: [Platform engineering, Configuration, Release management]
+related: []
+---
+
+## The problem
+
+Previously, all users received the same CRM experience. Application teams shared a codebase, and there was no mechanism to assign different experiences to user profiles or test channels.
+
+## My contribution
+
+I owned the proposal, architectural design, development, testing, migration, and maintenance of the solution. One application managed user profiles and channels. I also built a developer-facing application for editing JSON configurations, creating profiles and channels, versioning configurations, and deploying versions to channels through a release process.
+
+At runtime, a user's assigned profile and channel determined which latest deployed configuration the CRM loaded. The stable channel retained the legacy experience, while developers could use testing channels for different configurations.
+
+## What changed
+
+The platform moved from application teams modifying shared code to independently developed applications assembled through JSON configuration. Users could receive different CRM experiences according to their profile and channel.
+
+## Load testing and observability
+
+Using Large Testing Platform, I tested a peak-entry scenario involving 11,000 people accessing the CRM. The scenario exercised both applications: resolving each user's profile and channel, then retrieving the latest configuration version. I used ClickHouse and Datadog for metrics, with monitors to observe system behavior.
+
+## Stack
+
+NoSQL, Streams, MySQL, cache, API integrations, Large Testing Platform, ClickHouse, and Datadog.
+
+*Published October 2026. The publication date does not indicate the contribution's start or completion date.*
