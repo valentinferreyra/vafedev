@@ -567,6 +567,35 @@ summary {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.books-intro { color: var(--muted-ink); max-width: 34rem; font-size: 1.08rem; }
+.books-preview-note { color: var(--muted-ink); border-left: 2px solid var(--accent); padding-left: 1rem; font-size: 0.82rem; max-width: 39rem; margin: 2rem 0; }
+.book-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2.5rem 0 3.5rem; }
+.book-filters button { cursor: pointer; min-height: 44px; padding: 0.6rem 1rem; border: 1px solid var(--line); border-radius: 0.4rem; background: transparent; color: var(--muted-ink); font: inherit; }
+.book-filters button[aria-pressed="true"] { background: var(--surface); color: var(--ink); border-color: var(--accent); }
+.book-filters button:hover { color: var(--ink); border-color: var(--accent); }
+.book-filters button span { margin-left: 0.5rem; font-size: 0.75rem; }
+.book-shelf + .book-shelf { margin-top: 4rem; }
+.book-shelf ul { list-style: none; padding: 0; margin: 0; }
+.book-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: start; gap: 1.75rem; border-top: 1px solid var(--line); padding: 1.8rem 0; }
+.book-cover { min-height: 158px; padding: 0.8rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); color: var(--ink); }
+.book-cover span { font: 0.5rem/1.4 var(--font-geist-mono), monospace; letter-spacing: 0.08em; }
+.book-cover strong { font-weight: 500; font-size: 0.95rem; line-height: 1.25; }
+.book-cover-backlog { border-left-style: dotted; }
+.book-cover-reading { background: var(--teal-glow); }
+.book-copy h3 { margin: 0; font-size: 1.25rem; font-weight: 500; }
+.book-topic { margin: 0 0 0.4rem; font: 0.68rem/1.5 var(--font-geist-mono), monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+.book-author { color: var(--muted-ink); margin: 0.2rem 0 0; font-size: 0.88rem; }
+.book-note { color: var(--muted-ink); max-width: 34rem; font-size: 0.95rem; }
+.book-reflection summary { cursor: pointer; color: var(--accent); min-height: 44px; padding: 0.6rem 0; }
+.book-reflection p { color: var(--muted-ink); font-size: 0.9rem; }
+@media (max-width: 480px) {
+  .book-row { grid-template-columns: 76px minmax(0, 1fr); gap: 1rem; }
+  .book-cover { min-height: 120px; padding: 0.5rem; }
+  .book-cover strong { font-size: 0.75rem; }
+  .book-cover span { font-size: 0.42rem; }
+  .book-copy h3 { font-size: 1.08rem; }
+}
+
 .section-heading h2 {
   margin: 0;
   font-size: 1.5rem;

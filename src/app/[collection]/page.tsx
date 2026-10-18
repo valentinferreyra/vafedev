@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { ContentCollection } from "@/components/content/content-card";
+import { BooksPreview } from "@/components/books-preview";
 import { getCollection } from "@/lib/content/repository";
 import { COLLECTIONS, isCollectionName } from "@/lib/content/types";
 
@@ -24,5 +25,6 @@ export default async function CollectionPage({
 }) {
   const { collection } = await params;
   if (!isCollectionName(collection)) notFound();
+  if (collection === "books" && getCollection("books").length === 0) return <BooksPreview />;
   return <ContentCollection title={titles[collection]} entries={getCollection(collection)} />;
 }
