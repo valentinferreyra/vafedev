@@ -2,19 +2,32 @@
 import { afterEach, expect, it, vi } from "vitest";
 import { createHash } from "node:crypto";
 import { NextRequest } from "next/server";
-import { createSpotifyAuthorization, isLocalSpotifySetup, parseSavedTracks, requestSpotifyToken } from "@/lib/spotify";
+import { createSpotifyAuthorization, isLocalSpotifySetup, parseSavedTracks, requestSpotifyToken, replacePlaylistSongs } from "@/lib/spotify";
 import { POST } from "@/app/api/spotify/connect/route";
 import { GET } from "@/app/api/spotify/callback/route";
 
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals(); });
 
-it("uses unpredictable state and a matching PKCE challenge with only library read access", () => {
+it("uses PKCE with library read and public playlist write access", () => {
   const auth = createSpotifyAuthorization();
   const query = new URL(auth.url).searchParams;
   expect(query.get("code_challenge")).toBe(createHash("sha256").update(auth.verifier).digest("base64url"));
-  expect(query.get("scope")).toBe("user-library-read");
+  expect(query.get("scope")).toBe("user-library-read playlist-modify-public");
   expect(query.get("state")).toBe(auth.state);
   expect(createSpotifyAuthorization().state).not.toBe(auth.state);
+});
+
+it("replaces only the specified playlist with at most 20 track URIs", async () => {
+  const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ snapshot_id: "new" })));
+  vi.stubGlobal("fetch", fetchMock);
+  await replacePlaylistSongs("private", "managed123", ["song1", "song2"]);
+  const [url, init] = fetchMock.mock.calls[0];
+  expect(url).toBe("https://api.spotify.com/v1/playlists/managed123/items");
+  expect(init.method).toBe("PUT");
+  expect(JSON.parse(init.body)).toEqual({ uris: ["spotify:track:song1", "spotify:track:song2"] });
+  await expect(replacePlaylistSongs("private", "../other", [])).rejects.toThrow();
+  await expect(replacePlaylistSongs("private", "managed123", Array(21).fill("song"))).rejects.toThrow();
+  expect(fetchMock).toHaveBeenCalledTimes(1);
 });
 
 it("disables setup in production and outside the exact local origin", () => {

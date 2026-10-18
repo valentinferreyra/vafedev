@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
-import { isLocalSpotifySetup, requestSpotifyToken, saveLocalSpotifyToken, spotifyRedirect } from "@/lib/spotify";
+import { getSpotifyPlaylist, isLocalSpotifySetup, requestSpotifyToken, saveLocalSpotifyToken, spotifyRedirect, spotifyScopes } from "@/lib/spotify";
 
 export async function GET(request: NextRequest) {
   if (!isLocalSpotifySetup(`${request.nextUrl.protocol}//${request.headers.get("host")}`)) return new NextResponse(null, { status: 404 });
@@ -18,8 +18,9 @@ export async function GET(request: NextRequest) {
   }
   try {
     const token = await requestSpotifyToken({ grant_type: "authorization_code", code: query.get("code")!, redirect_uri: spotifyRedirect, code_verifier: verifier });
-    if (!token.refresh_token || !token.scope?.split(" ").includes("user-library-read")) throw new Error("Missing permission");
-    await saveLocalSpotifyToken(token.refresh_token);
+    if (!token.refresh_token || !spotifyScopes.split(" ").every((scope) => token.scope?.split(" ").includes(scope))) throw new Error("Missing permission");
+    await saveLocalSpotifyToken(token.refresh_token, token.scope);
+    await getSpotifyPlaylist(true);
     revalidateTag("spotify-library", { expire: 0 });
   } catch {
     response.headers.set("Location", new URL("/music?connection=failed", spotifyRedirect).toString());
