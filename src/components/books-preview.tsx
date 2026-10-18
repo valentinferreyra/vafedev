@@ -6,11 +6,8 @@ import Image from "next/image";
 type ReadingState = "Reading" | "Read" | "Backlog";
 const states: ReadingState[] = ["Reading", "Read", "Backlog"];
 const books: { title: string; author: string; state: ReadingState; topic: string; note: string; cover?: string }[] = [
-  { title: "Systems & trade-offs", author: "Example author", state: "Reading", topic: "Architecture", note: "A short note about what drew me to this book and the questions I’m exploring." },
   { title: "Designing Data-Intensive Applications", author: "Martin Kleppmann", state: "Read", topic: "Data systems", note: "", cover: "https://images.cdn3.buscalibre.com/fit-in/660x660/66/c1/66c1faade053a0f90c2452c1d972fc55.jpg" },
   { title: "The Pragmatic Programmer", author: "David Thomas & Andrew Hunt", state: "Read", topic: "Software engineering", note: "", cover: "https://images.cdn2.buscalibre.com/fit-in/660x660/03/1a/031af9d7e401bb2d08911c317ecbedad.jpg" },
-  { title: "Thinking in data", author: "Example author", state: "Backlog", topic: "Data", note: "Why this book is on my list and what I hope to learn from it." },
-  { title: "Teams that build", author: "Example author", state: "Backlog", topic: "Collaboration", note: "A question I’d like this book to help me answer." },
 ];
 
 export function BooksPreview() {
@@ -20,7 +17,6 @@ export function BooksPreview() {
       <p className="eyebrow">Library / Books</p>
       <h1>Books</h1>
       <p className="books-intro">What I’m reading, what stayed with me, and what’s next.</p>
-      <p className="books-preview-note">Design preview · The books in Read are confirmed reads. Entries credited to “Example author” are fictional examples, not my reading history.</p>
       <div className="book-filters" role="group" aria-label="Filter books by reading status">
         {(["All", ...states] as const).map((state) => (
           <button key={state} type="button" aria-pressed={filter === state} onClick={() => setFilter(state)}>
@@ -32,6 +28,7 @@ export function BooksPreview() {
         {states.filter((state) => filter === "All" || filter === state).map((state) => (
           <section key={state} aria-label={`${state} books`} className="book-shelf">
             <div className="section-heading"><h2>{state}</h2><span>{books.filter((book) => book.state === state).length} books</span></div>
+            {!books.some((book) => book.state === state) ? <p className="book-note">{state === "Reading" ? "No books in progress right now." : "No books on the backlog yet."}</p> : null}
             <ul>
               {books.filter((book) => book.state === state).map((book) => (
                 <li key={book.title} className="book-row">
@@ -41,7 +38,6 @@ export function BooksPreview() {
                     <h3>{book.title}</h3>
                     <p className="book-author">{book.author}</p>
                     {book.note ? <p className="book-note">{book.note}</p> : null}
-                    {state === "Read" && !book.cover ? <details className="book-reflection"><summary>Reading note</summary><p>A longer reflection could live here. A full review would belong in the blog.</p></details> : null}
                   </div>
                 </li>
               ))}
